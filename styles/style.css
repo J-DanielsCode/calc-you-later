@@ -6,9 +6,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "Open Sans", sans-serif;
 }
 body #calculator {
-  width: 90%;
+  width: 400px;
   height: 600px;
   border: 1px solid rgba(0, 0, 0, 0.253);
   background-color: #E9E3DF;
@@ -23,7 +24,7 @@ body #calculator {
 body #calculator #display-name-container {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 95%;
   margin: 0 auto;
 }
 body #calculator #display-name-container #name {
@@ -35,25 +36,28 @@ body #calculator #display-name-container #name {
   color: #89A8B2;
   padding-left: 5px;
 }
-body #calculator #display-name-container #display {
+body #calculator #display-name-container #display-container {
   width: 100%;
+  background-color: #454545;
+  border-radius: 10px;
+}
+body #calculator #display-name-container #display-container #display {
+  width: 90%;
   height: 120px;
   background-color: #282828;
   z-index: 1;
   border-radius: 10px;
-  border: 1px solid white;
   display: flex;
   align-items: flex-end;
   margin: 0 auto;
 }
-body #calculator #display-name-container #display h1 {
+body #calculator #display-name-container #display-container #display h1 {
   font-family: "Bitcount Single", system-ui;
   font-weight: 250;
   color: rgb(102, 255, 102);
   display: flex;
   width: 100%;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   align-items: flex-end;
   justify-content: flex-end;
   margin: 0;
@@ -61,4 +65,53 @@ body #calculator #display-name-container #display h1 {
   height: 100%;
   overflow-wrap: break-word;
   word-break: break-word;
+}
+body #calculator #characters {
+  width: 95%;
+  height: 370px;
+  margin: auto;
+  padding: 2px;
+  display: grid;
+  grid-template: repeat(5, 1fr)/repeat(5, 1fr);
+  gap: 3px;
+}
+body #calculator #characters .keys {
+  border: 1px solid rgba(0, 0, 0, 0.141);
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+body #calculator #characters .keys h1 {
+  font-size: 30px;
+  margin: 0;
+  text-align: center;
+}
+body #calculator #characters .number {
+  background-color: #B3C8CF;
+}
+body #calculator #characters .action {
+  background-color: #F1F0E8;
+}
+body #calculator #characters #multiply h1 {
+  padding-top: 5px;
+}
+body #calculator #characters .memory {
+  background-color: #F1F0E8;
+}
+body #calculator #characters .memory h1 {
+  font-size: 25px;
+}
+body #calculator #characters .symbol {
+  background-color: #E5E1DA;
+}
+body #calculator #characters .clear {
+  background-color: #89A8B2;
+}
+body #calculator #characters .clear h1 {
+  font-size: 25px;
+}
+body #calculator #characters #backspace {
+  background-color: #E5E1DA;
 }/*# sourceMappingURL=style.css.map */
