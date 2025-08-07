@@ -94,6 +94,24 @@ const handleEqualsClick = event => {
     }
 }
 
+const multiply = document.querySelector("#multiply");
+const handleMultiplyClick = event => {
+    console.log('Multiplication clicked.');
+    if (!entry1) {
+        entry1 = display.textContent; //adds number to running calc
+        console.log(`Entry 1: ${entry1}`);
+        display.textContent = ""; //clears display  
+        action = "multiply";      
+    } else {
+        entry2 = display.textContent;
+        console.log(`Entry 2: ${entry2}`)
+        let ans = Number(entry1) * Number(entry2);
+        display.textContent = ans;
+        console.log(`Answer: ${ans}`);
+        entry1 = "";
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
 
     // Adds numbers to the display
@@ -121,5 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //handles equals
     equals.addEventListener("click", handleEqualsClick);
+
+    multiply.addEventListener("click", handleMultiplyClick);
 
 })
