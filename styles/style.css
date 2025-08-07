@@ -48,13 +48,15 @@ body #calculator #display-name-container #display-container #display {
   z-index: 1;
   border-radius: 10px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   margin: 0 auto;
+  flex-direction: column;
 }
-body #calculator #display-name-container #display-container #display h1 {
+body #calculator #display-name-container #display-container #display #prev-input {
   font-family: "Bitcount Single", system-ui;
   font-weight: 250;
   color: rgb(102, 255, 102);
+  border: 1px solid red;
   display: flex;
   width: 100%;
   flex-flow: row wrap;
@@ -62,7 +64,23 @@ body #calculator #display-name-container #display-container #display h1 {
   justify-content: flex-end;
   margin: 0;
   padding: 0 5px;
-  height: 100%;
+  height: 50%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+body #calculator #display-name-container #display-container #display #current-input {
+  font-family: "Bitcount Single", system-ui;
+  font-weight: 250;
+  color: rgb(102, 255, 102);
+  border: 1px solid red;
+  display: flex;
+  width: 100%;
+  flex-flow: row wrap;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin: 0;
+  padding: 0 5px;
+  height: 50%;
   overflow-wrap: break-word;
   word-break: break-word;
 }

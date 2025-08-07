@@ -53,15 +53,16 @@ body {
                     border-radius: 10px;
                     // border: 1px solid white;
                     display: flex;
-                    align-items: flex-end; // Push h1 to bottom
+                    align-items: center; // Push h1 to bottom
                     margin: 0 auto;
+                    flex-direction: column;
                     // border-left: 10px solid #454545;
 
-                    h1 {
+                    #prev-input {
                         font-family: "Bitcount Single", system-ui;
                         font-weight: 250;
                         color: rgb(102, 255, 102);
-                        // border: 1px solid yellow;
+                        border: 1px solid red;
                         display: flex;
                         width: 100%;
                         flex-flow: row wrap;
@@ -69,10 +70,30 @@ body {
                         justify-content: flex-end;
                         margin: 0;
                         padding: 0 5px;
-                        height: 100%;
+                        height: 50%;
+                        overflow-wrap: break-word;   // ensure long words break
+                        word-break: break-word; 
+                    }
+
+                    #current-input {
+                        font-family: "Bitcount Single", system-ui;
+                        font-weight: 250;
+                        color: rgb(102, 255, 102);
+                        border: 1px solid red;
+                        display: flex;
+                        width: 100%;
+                        flex-flow: row wrap;
+                        align-items: flex-end;
+                        justify-content: flex-end;
+                        margin: 0;
+                        padding: 0 5px;
+                        height: 50%;
                         overflow-wrap: break-word;   // ensure long words break
                         word-break: break-word;      // fallback
+                        // z-index: 1;
                     }
+
+
                 }
             }
         }
