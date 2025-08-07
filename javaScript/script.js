@@ -1,20 +1,25 @@
 
+const display = document.querySelector("#display-info"); //initiates display
+
+const numberKeys = document.querySelectorAll(".keys.number");
+const handleNumberClick = event => {
+    const number = event.target.textContent.trim();
+    display.textContent += number;
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
 
-    const display = document.querySelector("#display-info"); //initiates display
+    // const display = document.querySelector("#display-info"); //initiates display
     let number1; //initiates calculation to be run
     let number2;
 
     // Adds numbers to the display
-    const numberKeys = document.querySelectorAll(".keys.number");
+    // const numberKeys = document.querySelectorAll(".keys.number");
     // for each key clicked the text within the key is added to the display
     numberKeys.forEach((key) => {
-        key.addEventListener("click", () => {
-            const number = key.textContent.trim();
-            display.textContent += number;
-            console.log(number);
-        })
-    })
+        key.addEventListener("click", handleNumberClick);
+    });
 
     // adds decimals to the display
     const decimalKey = document.querySelector("#decimal");
