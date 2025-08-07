@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const display = document.querySelector("#display-info"); //initiates display
     let number1; //initiates calculation to be run
     let number2;
+
     // Adds numbers to the display
     const numberKeys = document.querySelectorAll(".keys.number");
     // for each key clicked the text within the key is added to the display
@@ -41,6 +42,14 @@ document.addEventListener("DOMContentLoaded", () => {
         display.textContent = display.textContent.slice(0,-1);
     })
 
+    //removes all numbers from calculation
+    const clearAll = document.querySelector("#clear-all");
+    clearAll.addEventListener("click", () => {
+        display.textContent = "";
+        number1 = "";
+        number2 = "";
+    })
+
     //runs when + clicked
     const addition = document.querySelector("#addition");
     addition.addEventListener("click", () => {
@@ -51,15 +60,30 @@ document.addEventListener("DOMContentLoaded", () => {
             display.textContent = ""; //clears display
         } else {
             number2 = display.textContent;
-            console.log(`Calc2: ${number2}`)
+            console.log(`Number2: ${number2}`)
             let ans = Number(number1) + Number(number2);
             display.textContent = ans;
             console.log(`Answer: ${ans}`);
             calculation = "";
+        }     
+    })
+
+    //handles subtraction
+    const subtraction = document.querySelector("#subtraction");
+    subtraction.addEventListener("click", () => {
+        console.log('Subtraction clicked.');
+        if (!number1) {
+            number1 = display.textContent; //adds number to running calc
+            console.log(`Calculation: ${number1}`);
+            display.textContent = ""; //clears display        
+        } else {
+            number2 = display.textContent;
+            console.log(`Number2: ${number2}`)
+            let ans = Number(number1) - Number(number2);
+            display.textContent = ans;
+            console.log(`Answer: ${ans}`);
+            calculation = "";
         }
-        
-        
-        
     })
 
 })
