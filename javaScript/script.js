@@ -1,94 +1,125 @@
 
 const display = document.querySelector("#display-info"); //initiates display
+let entry1; //initiates calculation to be run
+let entry2;
+let action;
 
 const numberKeys = document.querySelectorAll(".keys.number");
+//handles click of number keys
 const handleNumberClick = event => {
     const number = event.target.textContent.trim();
     display.textContent += number;
 }
 
+const decimalKey = document.querySelector("#decimal");
+// handles click of decimal button
+const handleDecimalClick = event => {
+    // if a '.' is not already in the display when clicked, it will be added to display
+    if (!display.textContent.includes(decimalKey.textContent.trim())) {
+        display.textContent += decimalKey.textContent.trim();
+        console.log(display.textContent); //debugging
+    } else {
+        display.textContent += "";
+        console.log(display.textContent); //debugging
+    }
+}
+
+const backspace = document.querySelector("#backspace");
+const handleBackspaceClick = event => {
+    display.textContent = display.textContent.slice(0,-1);
+}
+
+const clearEntry = document.querySelector("#clearEntry");
+const handleClearEntryClick = event => {
+    display.textContent = "";
+    console.log('Entry Cleared!');
+}
+
+const clearAll = document.querySelector("#clear-all");
+const handleClearAllClick = event => {
+    display.textContent = "";
+    entry1 = "";
+    entry2 = "";
+}
+
+const addition = document.querySelector("#addition");
+const handleAdditionClick = event => {
+    console.log('addition clicked');
+    if (!entry1) {
+        entry1 = display.textContent; //adds number to running calc
+        console.log(`Entry 1: ${entry1}`);
+        display.textContent = ""; //clears display
+        action = 'add';
+    } else {
+        entry2 = display.textContent;
+        console.log(`Entry 2: ${entry2}`)
+        let ans = Number(entry1) + Number(entry2);
+        display.textContent = ans;
+        console.log(`Answer: ${ans}`);
+        entry1 = "";
+    } 
+}
+
+const subtraction = document.querySelector("#subtraction");
+const handleSubtractionClick = event => {
+    console.log('Subtraction clicked.');
+    if (!entry1) {
+        entry1 = display.textContent; //adds number to running calc
+        console.log(`Entry 1: ${entry1}`);
+        display.textContent = ""; //clears display  
+        action = "subtract";      
+    } else {
+        entry2 = display.textContent;
+        console.log(`Entry 2: ${entry2}`)
+        let ans = Number(entry1) - Number(entry2);
+        display.textContent = ans;
+        console.log(`Answer: ${ans}`);
+        entry1 = "";
+    }
+}
+const equals = document.querySelector("#equals");
+const handleEqualsClick = event => {
+    if (!display.textContent) {
+        display.textContent += "";
+    } else {
+        if (entry1 && action === 'add') {
+            entry2 = display.textContent;
+            let ans = Number(entry1) + Number(entry2);
+            display.textContent = ans;
+        } else if (entry1 && action === "subtract") {
+            entry2 = display.textContent;
+            let ans = Number(entry1) - Number(entry2);
+            display.textContent = ans;
+        }
+    }
+}
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    // const display = document.querySelector("#display-info"); //initiates display
-    let number1; //initiates calculation to be run
-    let number2;
-
     // Adds numbers to the display
-    // const numberKeys = document.querySelectorAll(".keys.number");
-    // for each key clicked the text within the key is added to the display
-    numberKeys.forEach((key) => {
+    numberKeys.forEach((key) => { // for each key clicked the text within the key is added to the display
         key.addEventListener("click", handleNumberClick);
     });
 
-    // adds decimals to the display
-    const decimalKey = document.querySelector("#decimal");
-    // if a '.' is not already in the display when clicked, it will be added to display
-    decimalKey.addEventListener("click", () => {
-        if (!display.textContent.includes(decimalKey.textContent.trim())) {
-            display.textContent += decimalKey.textContent.trim();
-            console.log(display.textContent); //debugging
-        } else {
-            display.textContent += "";
-            console.log(display.textContent); //debugging
-        }
-    })
+    // adds decimal to the display
+    decimalKey.addEventListener("click", handleDecimalClick);
 
     //clears entry
-    const clearEntry = document.querySelector("#clearEntry");
-    clearEntry.addEventListener("click", () => {
-        display.textContent = "";
-        console.log('Entry Cleared!');
-    })
+    clearEntry.addEventListener("click", handleClearEntryClick);
 
     //removes last digit entered
-    const backspace = document.querySelector("#backspace");
-    backspace.addEventListener('click', () => {
-        display.textContent = display.textContent.slice(0,-1);
-    })
+    backspace.addEventListener('click', handleBackspaceClick);
 
     //removes all numbers from calculation
-    const clearAll = document.querySelector("#clear-all");
-    clearAll.addEventListener("click", () => {
-        display.textContent = "";
-        number1 = "";
-        number2 = "";
-    })
+    clearAll.addEventListener("click", handleClearAllClick);
 
     //runs when + clicked
-    const addition = document.querySelector("#addition");
-    addition.addEventListener("click", () => {
-        console.log('addition clicked');
-        if (!number1) {
-            number1 = display.textContent; //adds number to running calc
-            console.log(`Calculation: ${number1}`);
-            display.textContent = ""; //clears display
-        } else {
-            number2 = display.textContent;
-            console.log(`Number2: ${number2}`)
-            let ans = Number(number1) + Number(number2);
-            display.textContent = ans;
-            console.log(`Answer: ${ans}`);
-            calculation = "";
-        }     
-    })
+    addition.addEventListener("click", handleAdditionClick);
 
     //handles subtraction
-    const subtraction = document.querySelector("#subtraction");
-    subtraction.addEventListener("click", () => {
-        console.log('Subtraction clicked.');
-        if (!number1) {
-            number1 = display.textContent; //adds number to running calc
-            console.log(`Calculation: ${number1}`);
-            display.textContent = ""; //clears display        
-        } else {
-            number2 = display.textContent;
-            console.log(`Number2: ${number2}`)
-            let ans = Number(number1) - Number(number2);
-            display.textContent = ans;
-            console.log(`Answer: ${ans}`);
-            calculation = "";
-        }
-    })
+    subtraction.addEventListener("click", handleSubtractionClick);
+
+    //handles equals
+    equals.addEventListener("click", handleEqualsClick);
 
 })
