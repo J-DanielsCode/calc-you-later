@@ -94,6 +94,10 @@ const handleEqualsClick = event => {
             entry2 = display.textContent;
             let ans = Number(entry1) * Number(entry2);
             display.textContent = ans;
+        } else if (entry1 && action === "divide") {
+            entry2 = display.textContent;
+            let ans = Number(entry1) / Number(entry2);
+            display.textContent = ans;
         }
     }
 }
