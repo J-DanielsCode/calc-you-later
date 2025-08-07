@@ -1,8 +1,9 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const display = document.querySelector("#display-info");
-
+    const display = document.querySelector("#display-info"); //initiates display
+    let number1; //initiates calculation to be run
+    let number2;
     // Adds numbers to the display
     const numberKeys = document.querySelectorAll(".keys.number");
     // for each key clicked the text within the key is added to the display
@@ -27,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 
-    // clears entry
+    //clears entry
     const clearEntry = document.querySelector("#clearEntry");
     clearEntry.addEventListener("click", () => {
         display.textContent = "";
@@ -38,6 +39,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const backspace = document.querySelector("#backspace");
     backspace.addEventListener('click', () => {
         display.textContent = display.textContent.slice(0,-1);
+    })
+
+    //runs when + clicked
+    const addition = document.querySelector("#addition");
+    addition.addEventListener("click", () => {
+        console.log('addition clicked');
+        if (!number1) {
+            number1 = display.textContent; //adds number to running calc
+            console.log(`Calculation: ${number1}`);
+            display.textContent = ""; //clears display
+        } else {
+            number2 = display.textContent;
+            console.log(`Calc2: ${number2}`)
+            let ans = Number(number1) + Number(number2);
+            display.textContent = ans;
+            console.log(`Answer: ${ans}`);
+            calculation = "";
+        }
+        
+        
+        
     })
 
 })
