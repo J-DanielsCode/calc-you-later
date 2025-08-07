@@ -77,30 +77,6 @@ const handleSubtractionClick = event => {
         entry1 = "";
     }
 }
-const equals = document.querySelector("#equals");
-const handleEqualsClick = event => {
-    if (!display.textContent) {
-        display.textContent += "";
-    } else {
-        if (entry1 && action === 'add') {
-            entry2 = display.textContent;
-            let ans = Number(entry1) + Number(entry2);
-            display.textContent = ans;
-        } else if (entry1 && action === "subtract") {
-            entry2 = display.textContent;
-            let ans = Number(entry1) - Number(entry2);
-            display.textContent = ans;
-        } else if (entry1 && action === "multiply") {
-            entry2 = display.textContent;
-            let ans = Number(entry1) * Number(entry2);
-            display.textContent = ans;
-        } else if (entry1 && action === "divide") {
-            entry2 = display.textContent;
-            let ans = Number(entry1) / Number(entry2);
-            display.textContent = ans;
-        }
-    }
-}
 
 const multiply = document.querySelector("#multiply");
 const handleMultiplyClick = event => {
@@ -134,6 +110,31 @@ const handleDivideClick = event => {
         display.textContent = ans;
         console.log(`Answer: ${ans}`);
         entry1 = "";
+    }
+}
+
+const equals = document.querySelector("#equals");
+const handleEqualsClick = event => {
+    if (!display.textContent) {
+        display.textContent += "";
+    } else {
+        if (entry1 && action === 'add') {
+            entry2 = display.textContent;
+            let ans = Number(entry1) + Number(entry2);
+            display.textContent = ans;
+        } else if (entry1 && action === "subtract") {
+            entry2 = display.textContent;
+            let ans = Number(entry1) - Number(entry2);
+            display.textContent = ans;
+        } else if (entry1 && action === "multiply") {
+            entry2 = display.textContent;
+            let ans = Number(entry1) * Number(entry2);
+            display.textContent = ans;
+        } else if (entry1 && action === "divide") {
+            entry2 = display.textContent;
+            let ans = Number(entry1) / Number(entry2);
+            display.textContent = ans;
+        }
     }
 }
 
