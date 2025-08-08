@@ -1,8 +1,15 @@
 
-const inputDisplay = document.querySelector("#current-input"); //initiates display
-let entry1; //initiates calculation to be run
-let entry2;
-let action;
+const inputDisplay = document.querySelector("#current-input"); //initiates input display
+const memoryDisplay = document.querySelector("#prev-input");
+const dmas = [
+    '/',
+    '+',
+    '-',
+    '*'
+];
+
+let displayString;
+let lastChar;
 
 const numberKeys = document.querySelectorAll(".keys.number");
 //handles click of number keys
@@ -38,43 +45,39 @@ const handleClearEntryClick = event => {
 const clearAll = document.querySelector("#clear-all");
 const handleClearAllClick = event => {
     inputDisplay.textContent = "";
-    entry1 = "";
-    entry2 = "";
+    memoryDisplay.textContent = "";
 }
 
 const addition = document.querySelector("#addition");
 const handleAdditionClick = event => {
     console.log('addition clicked');
-    if (!entry1) {
-        entry1 = inputDisplay.textContent; //adds number to running calc
-        console.log(`Entry 1: ${entry1}`);
-        inputDisplay.textContent = ""; //clears display
-        action = 'add';
+    displayString = inputDisplay.textContent;
+    lastChar = displayString[displayString.length - 1];
+    console.log(`Display String: ${displayString}`);
+    console.log(`Last Character: ${lastChar}`);
+
+    if (dmas.includes(lastChar)) {
+        inputDisplay.textContent += "";
     } else {
-        entry2 = inputDisplay.textContent;
-        console.log(`Entry 2: ${entry2}`)
-        let ans = Number(entry1) + Number(entry2);
-        inputDisplay.textContent = ans;
-        console.log(`Answer: ${ans}`);
-        entry1 = "";
-    } 
+        // calculation += inputDisplay.textContent;
+        // calculation += '+';
+        inputDisplay.textContent += '+';
+        // console.log(calculation);
+    }
 }
 
 const subtraction = document.querySelector("#subtraction");
 const handleSubtractionClick = event => {
-    console.log('Subtraction clicked.');
-    if (!entry1) {
-        entry1 = inputDisplay.textContent; //adds number to running calc
-        console.log(`Entry 1: ${entry1}`);
-        inputDisplay.textContent = ""; //clears display  
-        action = "subtract";      
+    console.log('Subtraction clicked');
+    displayString = inputDisplay.textContent;
+    lastChar = displayString[displayString.length - 1];
+    console.log(`Display String: ${displayString}`);
+    console.log(`Last Character: ${lastChar}`);
+
+    if (dmas.includes(lastChar)) {
+        inputDisplay.textContent += "";
     } else {
-        entry2 = inputDisplay.textContent;
-        console.log(`Entry 2: ${entry2}`)
-        let ans = Number(entry1) - Number(entry2);
-        dispinputDisplaylay.textContent = ans;
-        console.log(`Answer: ${ans}`);
-        entry1 = "";
+        inputDisplay.textContent += '-';
     }
 }
 
@@ -82,61 +85,80 @@ const handleSubtractionClick = event => {
 const multiply = document.querySelector("#multiply");
 const handleMultiplyClick = event => {
     console.log('Multiplication clicked.');
-    if (!entry1) {
-        entry1 = inputDisplay.textContent; //adds number to running calc
-        console.log(`Entry 1: ${entry1}`);
-        inputDisplay.textContent = ""; //clears display  
-        action = "multiply";      
+    displayString = inputDisplay.textContent;
+    lastChar = displayString[displayString.length - 1];
+    console.log(`Display String: ${displayString}`);
+    console.log(`Last Character: ${lastChar}`);
+
+    if (dmas.includes(lastChar)) {
+        inputDisplay.textContent += "";
     } else {
-        entry2 = inputDisplay.textContent;
-        console.log(`Entry 2: ${entry2}`)
-        let ans = Number(entry1) * Number(entry2);
-        inputDisplay.textContent = ans;
-        console.log(`Answer: ${ans}`);
-        entry1 = "";
+        inputDisplay.textContent += '*';
     }
 }
 
 const division = document.querySelector("#division");
 const handleDivideClick = event => {
-    if (!entry1) {
-        entry1 = inputDisplay.textContent; //adds number to running calc
-        console.log(`Entry 1: ${entry1}`);
-        inputDisplay.textContent = ""; //clears display  
-        action = "divide";      
+    console.log('Division clicked.');
+    displayString = inputDisplay.textContent;
+    lastChar = displayString[displayString.length - 1];
+    console.log(`Display String: ${displayString}`);
+    console.log(`Last Character: ${lastChar}`);
+
+    if (dmas.includes(lastChar)) {
+        inputDisplay.textContent += "";
     } else {
-        entry2 = inputDisplay.textContent;
-        console.log(`Entry 2: ${entry2}`)
-        let ans = Number(entry1) / Number(entry2);
-        inputDisplay.textContent = ans;
-        console.log(`Answer: ${ans}`);
-        entry1 = "";
+        inputDisplay.textContent += '/';
     }
 }
 
 const equals = document.querySelector("#equals");
 const handleEqualsClick = event => {
-    if (!inputDisplay.textContent) {
-        inputDisplay.textContent += "";
+
+    console.log('Equals clicked.');
+    displayString = inputDisplay.textContent;
+    lastChar = displayString[displayString.length - 1];
+    console.log(`Display String: ${displayString}`);
+    
+
+    
+    if (dmas.includes(lastChar)) {
+        displayString = displayString.slice(0, -1);
+        let ans = eval(displayString);
+        memoryDisplay.textContent = displayString;
+        inputDisplay.textContent = ans;
     } else {
-        if (entry1 && action === 'add') {
-            entry2 = inputDisplay.textContent;
-            let ans = Number(entry1) + Number(entry2);
-            inputDisplay.textContent = ans;
-        } else if (entry1 && action === "subtract") {
-            entry2 = inputDisplay.textContent;
-            let ans = Number(entry1) - Number(entry2);
-            inputDisplay.textContent = ans;
-        } else if (entry1 && action === "multiply") {
-            entry2 = inputDisplay.textContent;
-            let ans = Number(entry1) * Number(entry2);
-            inputDisplay.textContent = ans;
-        } else if (entry1 && action === "divide") {
-            entry2 = inputDisplay.textContent;
-            let ans = Number(entry1) / Number(entry2);
-            inputDisplay.textContent = ans;
-        }
+        memoryDisplay.textContent = displayString;
+        let ans = eval(displayString);
+        inputDisplay.textContent = ans;
     }
+
+    const equation = Number(displayString);
+    console.log(equation);
+
+
+
+    // if (!inputDisplay.textContent) {
+    //     inputDisplay.textContent += "";
+    // } else {
+    //     if (entry1 && action === 'add') {
+    //         entry2 = inputDisplay.textContent;
+    //         let ans = Number(entry1) + Number(entry2);
+    //         inputDisplay.textContent = ans;
+    //     } else if (entry1 && action === "subtract") {
+    //         entry2 = inputDisplay.textContent;
+    //         let ans = Number(entry1) - Number(entry2);
+    //         inputDisplay.textContent = ans;
+    //     } else if (entry1 && action === "multiply") {
+    //         entry2 = inputDisplay.textContent;
+    //         let ans = Number(entry1) * Number(entry2);
+    //         inputDisplay.textContent = ans;
+    //     } else if (entry1 && action === "divide") {
+    //         entry2 = inputDisplay.textContent;
+    //         let ans = Number(entry1) / Number(entry2);
+    //         inputDisplay.textContent = ans;
+    //     }
+    // }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -170,4 +192,6 @@ document.addEventListener("DOMContentLoaded", () => {
     multiply.addEventListener("click", handleMultiplyClick);
 
     division.addEventListener("click", handleDivideClick);
+
+
 })

@@ -55,8 +55,7 @@ body #calculator #display-name-container #display-container #display {
 body #calculator #display-name-container #display-container #display #prev-input {
   font-family: "Bitcount Single", system-ui;
   font-weight: 250;
-  color: rgb(102, 255, 102);
-  border: 1px solid red;
+  color: rgba(102, 255, 102, 0.551);
   display: flex;
   width: 100%;
   flex-flow: row wrap;
@@ -72,7 +71,6 @@ body #calculator #display-name-container #display-container #display #current-in
   font-family: "Bitcount Single", system-ui;
   font-weight: 250;
   color: rgb(102, 255, 102);
-  border: 1px solid red;
   display: flex;
   width: 100%;
   flex-flow: row wrap;
