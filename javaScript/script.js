@@ -135,30 +135,24 @@ const handleEqualsClick = event => {
 
     const equation = Number(displayString);
     console.log(equation);
+}
 
+const percentKey = document.querySelector("#percent");
+const handlePercentClick = event => {
+    console.log('Percent clicked.');
+    displayString = inputDisplay.textContent;
+    lastChar = displayString[displayString.length - 1];
+    console.log(`Display String: ${displayString}`);
+    console.log(`Last Character: ${lastChar}`);
 
+    if(lastChar === '%') {
+        inputDisplay.textContent += "";
+    } else if (dmas.includes(lastChar)) {
+        inputDisplay.textContent += "";
+    } else {
+        inputDisplay.textContent += '%';
+    }
 
-    // if (!inputDisplay.textContent) {
-    //     inputDisplay.textContent += "";
-    // } else {
-    //     if (entry1 && action === 'add') {
-    //         entry2 = inputDisplay.textContent;
-    //         let ans = Number(entry1) + Number(entry2);
-    //         inputDisplay.textContent = ans;
-    //     } else if (entry1 && action === "subtract") {
-    //         entry2 = inputDisplay.textContent;
-    //         let ans = Number(entry1) - Number(entry2);
-    //         inputDisplay.textContent = ans;
-    //     } else if (entry1 && action === "multiply") {
-    //         entry2 = inputDisplay.textContent;
-    //         let ans = Number(entry1) * Number(entry2);
-    //         inputDisplay.textContent = ans;
-    //     } else if (entry1 && action === "divide") {
-    //         entry2 = inputDisplay.textContent;
-    //         let ans = Number(entry1) / Number(entry2);
-    //         inputDisplay.textContent = ans;
-    //     }
-    // }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -193,5 +187,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     division.addEventListener("click", handleDivideClick);
 
+    percentKey.addEventListener("click", handlePercentClick);
 
 })
