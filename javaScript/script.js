@@ -213,6 +213,11 @@ const handlePercentClick = event => {
 
 }
 
+const squareRootKey = document.querySelector("#square-root");
+const handleSquareRootClick = event => {
+    
+};
+
 document.addEventListener("DOMContentLoaded", () => {
 
     // Adds numbers to the display
@@ -246,5 +251,4 @@ document.addEventListener("DOMContentLoaded", () => {
     division.addEventListener("click", handleDivideClick);
 
     percentKey.addEventListener("click", handlePercentClick);
-
 })
