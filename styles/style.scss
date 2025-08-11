@@ -45,7 +45,7 @@ body {
                 border-radius: 10px;
 
                 #display {
-                    width: 90%;
+                    width: 342px;
                     height: 120px;
                     background-color: #282828;
                     z-index: 1;
@@ -61,10 +61,11 @@ body {
                     #prev-input {
                         font-family: "Bitcount Single", system-ui;
                         font-weight: 250;
+                        font-size: 28px;
                         color: rgba(102, 255, 102, 0.551);
                         // border: 1px solid red;
                         display: flex;
-                        width: 100%;
+                        width: 342px;
                         flex-flow: row wrap;
                         align-items: flex-end;
                         justify-content: flex-end;
@@ -78,10 +79,11 @@ body {
                     #current-input {
                         font-family: "Bitcount Single", system-ui;
                         font-weight: 250;
+                        font-size: 34px;
                         color: rgb(102, 255, 102);
                         // border: 1px solid red;
                         display: flex;
-                        width: 100%;
+                        width: 342px;
                         flex-flow: row wrap;
                         align-items: flex-end;
                         justify-content: flex-end;
