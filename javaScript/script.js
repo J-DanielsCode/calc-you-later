@@ -112,6 +112,86 @@ const handleDivideClick = event => {
     }
 }
 
+const cleanEquation = () => {
+    displayString = inputDisplay.textContent;
+    lastChar = displayString[displayString.length - 1];
+    const equationArr = displayString.split("");
+    let containsDmas;
+    let containsPercent;
+
+
+    //checks if dmas and then % are in the quation - handles equation accordingly.
+    for (let i = 0; i < equationArr.length; i++) {
+        for (let j = 0; j < dmas.length; j++) {
+            if ( equationArr[i] === dmas[j]) {
+                containsDmas = true; //update with react states
+                if (equationArr[i] === '%') {
+                    containsPercent = true;
+                    console.log("The equation contains a '%'!");
+
+                }                   
+            } else {
+                if (equationArr[i] === '%') {
+                    containsPercent = true;
+                    console.log("The equation contains a '%'!");
+                }
+            }
+        }
+    }
+
+    // handles the equation on display
+    if(!containsDmas && !containsPercent) { //if the equations doesnt contain a '+,-,*,/' or a %
+        inputDisplay.textContent += "";
+        memoryDisplay.textContent = displayString;
+        console.log(`Equation contains: Dmas - ${containsDmas}  % - ${containsPercent}`);
+    } else if (containsDmas && !containsPercent) { //if the equation contains a '+,-,*,/' but not a %
+        console.log(`Equation contains: Dmas - ${containsDmas}  % - ${containsPercent}`);
+        if (dmas.includes(lastChar)) {
+            displayString = displayString.slice(0, -1);
+            let ans = eval(displayString);
+            memoryDisplay.textContent = displayString;
+            inputDisplay.textContent = ans;
+        } else {
+            memoryDisplay.textContent = displayString;
+            let ans = eval(displayString);
+            inputDisplay.textContent = ans;
+        } 
+    } else if(!containsDmas && containsPercent) { //if the equation contains a % but not a '+,-,*,/'
+        console.log(`Equation contains: Dmas - ${containsDmas}  % - ${containsPercent}`);
+        if (dmas.includes(lastChar)) {
+            displayString = displayString.slice(0, -1);
+            let ans = eval(displayString);
+            memoryDisplay.textContent = displayString;
+            inputDisplay.textContent = ans;
+        } else {
+            memoryDisplay.textContent = displayString;
+            let ans = eval(displayString);
+            inputDisplay.textContent = ans;
+        } 
+    } else if (containsDmas && containsPercent) { //if the equations contains both a '+,-,*,/' and %
+        console.log(`Equation contains: Dmas - ${containsDmas}  % - ${containsPercent}`);
+        if (dmas.includes(lastChar)) {
+            displayString = displayString.slice(0, -1);
+            // checks for numbers before the % until index0 or a dmas, then turns the value% to its equivalent decimal. 
+            displayString = displayString.replace(/(\d+(\.\d+)?)%/g, (_, num) => parseFloat(num) / 100);
+            let ans = eval(displayString);
+            memoryDisplay.textContent = displayString;
+            inputDisplay.textContent = ans;
+        } else {
+            memoryDisplay.textContent = displayString;
+            // checks for numbers before the % until index0 or a dmas, then turns the value% to its equivalent decimal. 
+            displayString = displayString.replace(/(\d+(\.\d+)?)%/g, (_, num) => parseFloat(num) / 100);
+            let ans = eval(displayString);
+            inputDisplay.textContent = ans;
+        } 
+    } else {
+        console.log("Error occurred during handling of '=' please use the symbols or operators provided!");
+    }
+
+    //handling √
+    displayString = displayString.replace(/√(\d+(\.\d+)?)/g, Math.sqrt((_, num) => parseFloat(num)));
+}
+
 const equals = document.querySelector("#equals");
 const handleEqualsClick = event => {
 
@@ -193,6 +273,10 @@ const handleEqualsClick = event => {
     } else {
         console.log("Error occurred during handling of '=' please use the symbols or operators provided!");
     }
+
+    //handling √
+    
+    displayString = displayString.replace(/√(\d+(\.\d+)?)/g, Math.sqrt((_, num) => parseFloat(num)));
 }
 
 const percentKey = document.querySelector("#percent");
@@ -215,7 +299,7 @@ const handlePercentClick = event => {
 
 const squareRootKey = document.querySelector("#square-root");
 const handleSquareRootClick = event => {
-    
+    inputDisplay.textContent += '√';
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -251,4 +335,6 @@ document.addEventListener("DOMContentLoaded", () => {
     division.addEventListener("click", handleDivideClick);
 
     percentKey.addEventListener("click", handlePercentClick);
+
+    squareRootKey.addEventListener("click", handleSquareRootClick);
 })
