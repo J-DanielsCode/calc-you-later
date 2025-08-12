@@ -24,10 +24,8 @@ const handleDecimalClick = event => {
     // if a '.' is not already in the display when clicked, it will be added to display
     if (!inputDisplay.textContent.includes(decimalKey.textContent.trim())) {
         inputDisplay.textContent += decimalKey.textContent.trim();
-        console.log(inputDisplay.textContent); //debugging
     } else {
         inputDisplay.textContent += "";
-        console.log(inputDisplay.textContent); //debugging
     }
 }
 
@@ -53,16 +51,11 @@ const handleAdditionClick = event => {
     console.log('addition clicked');
     displayString = inputDisplay.textContent;
     lastChar = displayString[displayString.length - 1];
-    console.log(`Display String: ${displayString}`);
-    console.log(`Last Character: ${lastChar}`);
-
+    
     if (dmas.includes(lastChar)) {
         inputDisplay.textContent += "";
     } else {
-        // calculation += inputDisplay.textContent;
-        // calculation += '+';
         inputDisplay.textContent += '+';
-        // console.log(calculation);
     }
 }
 
@@ -71,8 +64,6 @@ const handleSubtractionClick = event => {
     console.log('Subtraction clicked');
     displayString = inputDisplay.textContent;
     lastChar = displayString[displayString.length - 1];
-    console.log(`Display String: ${displayString}`);
-    console.log(`Last Character: ${lastChar}`);
 
     if (dmas.includes(lastChar)) {
         inputDisplay.textContent += "";
@@ -87,8 +78,6 @@ const handleMultiplyClick = event => {
     console.log('Multiplication clicked.');
     displayString = inputDisplay.textContent;
     lastChar = displayString[displayString.length - 1];
-    console.log(`Display String: ${displayString}`);
-    console.log(`Last Character: ${lastChar}`);
 
     if (dmas.includes(lastChar)) {
         inputDisplay.textContent += "";
@@ -102,8 +91,6 @@ const handleDivideClick = event => {
     console.log('Division clicked.');
     displayString = inputDisplay.textContent;
     lastChar = displayString[displayString.length - 1];
-    console.log(`Display String: ${displayString}`);
-    console.log(`Last Character: ${lastChar}`);
 
     if (dmas.includes(lastChar)) {
         inputDisplay.textContent += "";
@@ -112,171 +99,160 @@ const handleDivideClick = event => {
     }
 }
 
-const cleanEquation = () => {
+const cleanDisplayString = () => {
     displayString = inputDisplay.textContent;
     lastChar = displayString[displayString.length - 1];
-    const equationArr = displayString.split("");
+
+    if (dmas.includes(lastChar)) {
+        displayString = displayString.slice(0, -1);
+        return displayString;
+    } else {
+        return displayString;
+    }
+
+}
+
+const cleanEquation = () => {
+    displayString = cleanDisplayString();
+    const displayArr = displayString.split("");
+    let equation = displayString;
     let containsDmas;
     let containsPercent;
+    let containsSqRt;
 
 
     //checks if dmas and then % are in the quation - handles equation accordingly.
-    for (let i = 0; i < equationArr.length; i++) {
+    for (let i = 0; i < displayArr.length; i++) {
+        if (displayArr[i] === '%') {
+            containsPercent = true;
+        }   
+        if (displayArr[i] === '√') {
+            containsSqRt = true;
+        }
         for (let j = 0; j < dmas.length; j++) {
-            if ( equationArr[i] === dmas[j]) {
+            if ( displayArr[i] === dmas[j]) {
                 containsDmas = true; //update with react states
-                if (equationArr[i] === '%') {
-                    containsPercent = true;
-                    console.log("The equation contains a '%'!");
-
-                }                   
-            } else {
-                if (equationArr[i] === '%') {
-                    containsPercent = true;
-                    console.log("The equation contains a '%'!");
-                }
             }
         }
     }
 
-    // handles the equation on display
-    if(!containsDmas && !containsPercent) { //if the equations doesnt contain a '+,-,*,/' or a %
-        inputDisplay.textContent += "";
-        memoryDisplay.textContent = displayString;
-        console.log(`Equation contains: Dmas - ${containsDmas}  % - ${containsPercent}`);
-    } else if (containsDmas && !containsPercent) { //if the equation contains a '+,-,*,/' but not a %
-        console.log(`Equation contains: Dmas - ${containsDmas}  % - ${containsPercent}`);
-        if (dmas.includes(lastChar)) {
-            displayString = displayString.slice(0, -1);
-            let ans = eval(displayString);
-            memoryDisplay.textContent = displayString;
-            inputDisplay.textContent = ans;
-        } else {
-            memoryDisplay.textContent = displayString;
-            let ans = eval(displayString);
-            inputDisplay.textContent = ans;
-        } 
-    } else if(!containsDmas && containsPercent) { //if the equation contains a % but not a '+,-,*,/'
-        console.log(`Equation contains: Dmas - ${containsDmas}  % - ${containsPercent}`);
-        if (dmas.includes(lastChar)) {
-            displayString = displayString.slice(0, -1);
-            let ans = eval(displayString);
-            memoryDisplay.textContent = displayString;
-            inputDisplay.textContent = ans;
-        } else {
-            memoryDisplay.textContent = displayString;
-            let ans = eval(displayString);
-            inputDisplay.textContent = ans;
-        } 
-    } else if (containsDmas && containsPercent) { //if the equations contains both a '+,-,*,/' and %
-        console.log(`Equation contains: Dmas - ${containsDmas}  % - ${containsPercent}`);
-        if (dmas.includes(lastChar)) {
-            displayString = displayString.slice(0, -1);
-            // checks for numbers before the % until index0 or a dmas, then turns the value% to its equivalent decimal. 
-            displayString = displayString.replace(/(\d+(\.\d+)?)%/g, (_, num) => parseFloat(num) / 100);
-            let ans = eval(displayString);
-            memoryDisplay.textContent = displayString;
-            inputDisplay.textContent = ans;
-        } else {
-            memoryDisplay.textContent = displayString;
-            // checks for numbers before the % until index0 or a dmas, then turns the value% to its equivalent decimal. 
-            displayString = displayString.replace(/(\d+(\.\d+)?)%/g, (_, num) => parseFloat(num) / 100);
-            let ans = eval(displayString);
-            inputDisplay.textContent = ans;
-        } 
-    } else {
-        console.log("Error occurred during handling of '=' please use the symbols or operators provided!");
+    // console.log(`Equation contains: Dmas - ${containsDmas},  % - ${containsPercent}, √ - ${containsSqRt}`);
+
+    if (containsDmas && containsPercent) {
+        // checks for numbers before the % until index0 or a dmas, then turns the value% to its equivalent decimal. 
+        equation = displayString.replace(/(\d+(\.\d+)?)%/g, (_, num) => parseFloat(num) / 100);
     }
 
-    //handling √
-    displayString = displayString.replace(/√(\d+(\.\d+)?)/g, Math.sqrt((_, num) => parseFloat(num)));
+    if (containsSqRt) {
+        //handling √
+        equation = displayString.replace(/√(\d+(\.\d+)?)/g, (_, num) => Math.sqrt(parseFloat(num)));
+    }
+
+    console.log(`Equation: ${equation}`)
+    let ans = eval(equation);
+    return [displayString, ans];
 }
 
 const equals = document.querySelector("#equals");
 const handleEqualsClick = event => {
 
     console.log('Equals clicked.');
-    displayString = inputDisplay.textContent;
-    lastChar = displayString[displayString.length - 1];
-    const equationArr = displayString.split("");
-    let containsDmas;
-    let containsPercent;
+    displayString = cleanEquation()[0];
+    let ans = cleanEquation()[1];
+
+    console.log(displayString);
+    console.log(ans);
+
+    inputDisplay.textContent = ans;
+    memoryDisplay.textContent = displayString;
+
+
+
+
+
+    // displayString = inputDisplay.textContent;
+    // lastChar = displayString[displayString.length - 1];
+    // const equationArr = displayString.split("");
+    // let containsDmas;
+    // let containsPercent;
 
     // debugging
     // console.log('Contains Dmas: ' + containsDmas)
     // console.log('Contains %: ' + containsPercent)
 
     //checks if dmas and then % are in the quation - handles equation accordingly.
-    for (let i = 0; i < equationArr.length; i++) {
-        for (let j = 0; j < dmas.length; j++) {
-            if ( equationArr[i] === dmas[j]) {
-                containsDmas = true; //update with react states
-                if (equationArr[i] === '%') {
-                    containsPercent = true;
-                    console.log("The equation contains a '%'!");
+    // for (let i = 0; i < equationArr.length; i++) {
+    //     for (let j = 0; j < dmas.length; j++) {
+    //         if ( equationArr[i] === dmas[j]) {
+    //             containsDmas = true; //update with react states
+    //             if (equationArr[i] === '%') {
+    //                 containsPercent = true;
+    //                 console.log("The equation contains a '%'!");
 
-                }                   
-            } else {
-                if (equationArr[i] === '%') {
-                    containsPercent = true;
-                    console.log("The equation contains a '%'!");
-                }
-            }
-        }
-    }
+    //             }                   
+    //         } else {
+    //             if (equationArr[i] === '%') {
+    //                 containsPercent = true;
+    //                 console.log("The equation contains a '%'!");
+    //             }
+    //         }
+    //     }
+    // }
 
-    // handles the equation on display
-    if(!containsDmas && !containsPercent) { //if the equations doesnt contain a '+,-,*,/' or a %
-        inputDisplay.textContent += "";
-        memoryDisplay.textContent = displayString;
-        console.log(`Equation contains: Dmas - ${containsDmas}  % - ${containsPercent}`);
-    } else if (containsDmas && !containsPercent) { //if the equation contains a '+,-,*,/' but not a %
-        console.log(`Equation contains: Dmas - ${containsDmas}  % - ${containsPercent}`);
-        if (dmas.includes(lastChar)) {
-            displayString = displayString.slice(0, -1);
-            let ans = eval(displayString);
-            memoryDisplay.textContent = displayString;
-            inputDisplay.textContent = ans;
-        } else {
-            memoryDisplay.textContent = displayString;
-            let ans = eval(displayString);
-            inputDisplay.textContent = ans;
-        } 
-    } else if(!containsDmas && containsPercent) { //if the equation contains a % but not a '+,-,*,/'
-        console.log(`Equation contains: Dmas - ${containsDmas}  % - ${containsPercent}`);
-        if (dmas.includes(lastChar)) {
-            displayString = displayString.slice(0, -1);
-            let ans = eval(displayString);
-            memoryDisplay.textContent = displayString;
-            inputDisplay.textContent = ans;
-        } else {
-            memoryDisplay.textContent = displayString;
-            let ans = eval(displayString);
-            inputDisplay.textContent = ans;
-        } 
-    } else if (containsDmas && containsPercent) { //if the equations contains both a '+,-,*,/' and %
-        console.log(`Equation contains: Dmas - ${containsDmas}  % - ${containsPercent}`);
-        if (dmas.includes(lastChar)) {
-            displayString = displayString.slice(0, -1);
-            // checks for numbers before the % until index0 or a dmas, then turns the value% to its equivalent decimal. 
-            displayString = displayString.replace(/(\d+(\.\d+)?)%/g, (_, num) => parseFloat(num) / 100);
-            let ans = eval(displayString);
-            memoryDisplay.textContent = displayString;
-            inputDisplay.textContent = ans;
-        } else {
-            memoryDisplay.textContent = displayString;
-            // checks for numbers before the % until index0 or a dmas, then turns the value% to its equivalent decimal. 
-            displayString = displayString.replace(/(\d+(\.\d+)?)%/g, (_, num) => parseFloat(num) / 100);
-            let ans = eval(displayString);
-            inputDisplay.textContent = ans;
-        } 
-    } else {
-        console.log("Error occurred during handling of '=' please use the symbols or operators provided!");
-    }
+    // console.log(`Equation contains: Dmas - ${containsDmas}  % - ${containsPercent} √ - ${containsSqRt}`);
 
-    //handling √
+    // // handles the equation on display
+    // if(!containsDmas && !containsPercent) { //if the equations doesnt contain a '+,-,*,/' or a %
+    //     inputDisplay.textContent += "";
+    //     memoryDisplay.textContent = displayString;
+    //     console.log(`Equation contains: Dmas - ${containsDmas}  % - ${containsPercent}`);
+    // } else if (containsDmas && !containsPercent) { //if the equation contains a '+,-,*,/' but not a %
+    //     console.log(`Equation contains: Dmas - ${containsDmas}  % - ${containsPercent}`);
+    //     if (dmas.includes(lastChar)) {
+    //         displayString = displayString.slice(0, -1);
+    //         let ans = eval(displayString);
+    //         memoryDisplay.textContent = displayString;
+    //         inputDisplay.textContent = ans;
+    //     } else {
+    //         memoryDisplay.textContent = displayString;
+    //         let ans = eval(displayString);
+    //         inputDisplay.textContent = ans;
+    //     } 
+    // } else if(!containsDmas && containsPercent) { //if the equation contains a % but not a '+,-,*,/'
+    //     console.log(`Equation contains: Dmas - ${containsDmas}  % - ${containsPercent}`);
+    //     if (dmas.includes(lastChar)) {
+    //         displayString = displayString.slice(0, -1);
+    //         let ans = eval(displayString);
+    //         memoryDisplay.textContent = displayString;
+    //         inputDisplay.textContent = ans;
+    //     } else {
+    //         memoryDisplay.textContent = displayString;
+    //         let ans = eval(displayString);
+    //         inputDisplay.textContent = ans;
+    //     } 
+    // } else if (containsDmas && containsPercent) { //if the equations contains both a '+,-,*,/' and %
+    //     console.log(`Equation contains: Dmas - ${containsDmas}  % - ${containsPercent}`);
+    //     if (dmas.includes(lastChar)) {
+    //         displayString = displayString.slice(0, -1);
+    //         // checks for numbers before the % until index0 or a dmas, then turns the value% to its equivalent decimal. 
+    //         displayString = displayString.replace(/(\d+(\.\d+)?)%/g, (_, num) => parseFloat(num) / 100);
+    //         let ans = eval(displayString);
+    //         memoryDisplay.textContent = displayString;
+    //         inputDisplay.textContent = ans;
+    //     } else {
+    //         memoryDisplay.textContent = displayString;
+    //         // checks for numbers before the % until index0 or a dmas, then turns the value% to its equivalent decimal. 
+    //         displayString = displayString.replace(/(\d+(\.\d+)?)%/g, (_, num) => parseFloat(num) / 100);
+    //         let ans = eval(displayString);
+    //         inputDisplay.textContent = ans;
+    //     } 
+    // } else {
+    //     console.log("Error occurred during handling of '=' please use the symbols or operators provided!");
+    // }
+
+    // //handling √
     
-    displayString = displayString.replace(/√(\d+(\.\d+)?)/g, Math.sqrt((_, num) => parseFloat(num)));
+    // displayString = displayString.replace(/√(\d+(\.\d+)?)/g, Math.sqrt((_, num) => parseFloat(num)));
 }
 
 const percentKey = document.querySelector("#percent");
