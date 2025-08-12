@@ -14,19 +14,29 @@ let lastChar;
 const numberKeys = document.querySelectorAll(".keys.number");
 //handles click of number keys
 const handleNumberClick = event => {
+    displayString = inputDisplay.textContent;
     const number = event.target.textContent.trim();
-    inputDisplay.textContent += number;
+    if (displayString.length < 16){
+        inputDisplay.textContent += number;
+    } else {
+        inputDisplay.textContent += "";
+    }
 }
 
 const decimalKey = document.querySelector("#decimal");
 // handles click of decimal button
 const handleDecimalClick = event => {
     // if a '.' is not already in the display when clicked, it will be added to display
-    if (!inputDisplay.textContent.includes(decimalKey.textContent.trim())) {
-        inputDisplay.textContent += decimalKey.textContent.trim();
+    if (displayString.length < 16) {
+        if (!inputDisplay.textContent.includes(decimalKey.textContent.trim())) {
+            inputDisplay.textContent += decimalKey.textContent.trim();
+        } else {
+            inputDisplay.textContent += "";
+        }
     } else {
         inputDisplay.textContent += "";
     }
+
 }
 
 const backspace = document.querySelector("#backspace");
@@ -51,11 +61,15 @@ const handleAdditionClick = event => {
     console.log('addition clicked');
     displayString = inputDisplay.textContent;
     lastChar = displayString[displayString.length - 1];
-    
-    if (dmas.includes(lastChar)) {
-        inputDisplay.textContent += "";
+
+    if (displayString.length < 16) {
+        if (dmas.includes(lastChar)) {
+            inputDisplay.textContent += "";
+        } else {
+            inputDisplay.textContent += '+';
+        }
     } else {
-        inputDisplay.textContent += '+';
+        inputDisplay.textContent += '';
     }
 }
 
@@ -65,10 +79,14 @@ const handleSubtractionClick = event => {
     displayString = inputDisplay.textContent;
     lastChar = displayString[displayString.length - 1];
 
-    if (dmas.includes(lastChar)) {
-        inputDisplay.textContent += "";
+    if (displayString.length < 16) {
+        if (dmas.includes(lastChar)) {
+            inputDisplay.textContent += "";
+        } else {
+            inputDisplay.textContent += '-';
+        }
     } else {
-        inputDisplay.textContent += '-';
+        inputDisplay.textContent += '';
     }
 }
 
@@ -79,10 +97,14 @@ const handleMultiplyClick = event => {
     displayString = inputDisplay.textContent;
     lastChar = displayString[displayString.length - 1];
 
-    if (dmas.includes(lastChar)) {
-        inputDisplay.textContent += "";
+    if (displayString.length < 16) {
+        if (dmas.includes(lastChar)) {
+            inputDisplay.textContent += "";
+        } else {
+            inputDisplay.textContent += '*';
+        }
     } else {
-        inputDisplay.textContent += '*';
+        inputDisplay.textContent += '';
     }
 }
 
@@ -92,10 +114,14 @@ const handleDivideClick = event => {
     displayString = inputDisplay.textContent;
     lastChar = displayString[displayString.length - 1];
 
-    if (dmas.includes(lastChar)) {
-        inputDisplay.textContent += "";
+    if (displayString.length < 16) {
+        if (dmas.includes(lastChar)) {
+            inputDisplay.textContent += "";
+        } else {
+            inputDisplay.textContent += '/';
+        }
     } else {
-        inputDisplay.textContent += '/';
+        inputDisplay.textContent += '';
     }
 }
 
@@ -110,6 +136,40 @@ const cleanDisplayString = () => {
         return displayString;
     }
 
+}
+
+const cleanAns = ans => {
+    const ansString = ans.toString();
+    const containsDecimal = ansString.includes('.');
+
+    const decimalIndex = ansString.indexOf('.');
+    
+    if (ansString.length <= 16 && containsDecimal && decimalIndex < 15) {
+        console.log("Ans is <= 16, contains a decimal and decimal index < 15")
+        return ans
+    } else if (ansString.length <= 16 && containsDecimal && decimalIndex === 15) {
+        console.log("Ans is <= 16, contains a decimal and decimal index = 15")
+        return Math.round(ans);
+    } else if (ansString.length > 16) {
+        if (containsDecimal) {
+            if (decimalIndex === 15 || decimalIndex === 16) {
+                console.log("Ans is > 16, contains a decimal, decimal index = 15 OR 16")
+                return Math.round(ans)
+            } else if (decimalIndex < 15) {
+                console.log("Ans is > 16, contains a decimal, decimal index < 15")
+                let indexAndLengthDiff = 15 - decimalIndex;
+                return Number.parseFloat(ans).toFixed(indexAndLengthDiff);
+            } else if (decimalIndex > 16) {
+                console.log("Ans is > 16, contains a decimal, decimal index > 17")
+                let expo = Number.parseFloat(ans).toExponential(3);
+                return expo
+            }
+        } else {
+            console.log("Ans is > 16, contains no decimal")
+            let expo = Number.parseFloat(ans).toExponential(3);
+            return expo;
+        }
+    }
 }
 
 const cleanEquation = () => {
@@ -150,6 +210,8 @@ const cleanEquation = () => {
 
     console.log(`Equation: ${equation}`)
     let ans = eval(equation);
+    let cleanAnswer = cleanAns(ans);
+    console.log(`Clean answer is: ${cleanAnswer}`);
     return [displayString, ans];
 }
 
@@ -158,101 +220,13 @@ const handleEqualsClick = event => {
 
     console.log('Equals clicked.');
     displayString = cleanEquation()[0];
-    let ans = cleanEquation()[1];
+    let ans = cleanAns(cleanEquation()[1]);
 
     console.log(displayString);
     console.log(ans);
 
     inputDisplay.textContent = ans;
     memoryDisplay.textContent = displayString;
-
-
-
-
-
-    // displayString = inputDisplay.textContent;
-    // lastChar = displayString[displayString.length - 1];
-    // const equationArr = displayString.split("");
-    // let containsDmas;
-    // let containsPercent;
-
-    // debugging
-    // console.log('Contains Dmas: ' + containsDmas)
-    // console.log('Contains %: ' + containsPercent)
-
-    //checks if dmas and then % are in the quation - handles equation accordingly.
-    // for (let i = 0; i < equationArr.length; i++) {
-    //     for (let j = 0; j < dmas.length; j++) {
-    //         if ( equationArr[i] === dmas[j]) {
-    //             containsDmas = true; //update with react states
-    //             if (equationArr[i] === '%') {
-    //                 containsPercent = true;
-    //                 console.log("The equation contains a '%'!");
-
-    //             }                   
-    //         } else {
-    //             if (equationArr[i] === '%') {
-    //                 containsPercent = true;
-    //                 console.log("The equation contains a '%'!");
-    //             }
-    //         }
-    //     }
-    // }
-
-    // console.log(`Equation contains: Dmas - ${containsDmas}  % - ${containsPercent} √ - ${containsSqRt}`);
-
-    // // handles the equation on display
-    // if(!containsDmas && !containsPercent) { //if the equations doesnt contain a '+,-,*,/' or a %
-    //     inputDisplay.textContent += "";
-    //     memoryDisplay.textContent = displayString;
-    //     console.log(`Equation contains: Dmas - ${containsDmas}  % - ${containsPercent}`);
-    // } else if (containsDmas && !containsPercent) { //if the equation contains a '+,-,*,/' but not a %
-    //     console.log(`Equation contains: Dmas - ${containsDmas}  % - ${containsPercent}`);
-    //     if (dmas.includes(lastChar)) {
-    //         displayString = displayString.slice(0, -1);
-    //         let ans = eval(displayString);
-    //         memoryDisplay.textContent = displayString;
-    //         inputDisplay.textContent = ans;
-    //     } else {
-    //         memoryDisplay.textContent = displayString;
-    //         let ans = eval(displayString);
-    //         inputDisplay.textContent = ans;
-    //     } 
-    // } else if(!containsDmas && containsPercent) { //if the equation contains a % but not a '+,-,*,/'
-    //     console.log(`Equation contains: Dmas - ${containsDmas}  % - ${containsPercent}`);
-    //     if (dmas.includes(lastChar)) {
-    //         displayString = displayString.slice(0, -1);
-    //         let ans = eval(displayString);
-    //         memoryDisplay.textContent = displayString;
-    //         inputDisplay.textContent = ans;
-    //     } else {
-    //         memoryDisplay.textContent = displayString;
-    //         let ans = eval(displayString);
-    //         inputDisplay.textContent = ans;
-    //     } 
-    // } else if (containsDmas && containsPercent) { //if the equations contains both a '+,-,*,/' and %
-    //     console.log(`Equation contains: Dmas - ${containsDmas}  % - ${containsPercent}`);
-    //     if (dmas.includes(lastChar)) {
-    //         displayString = displayString.slice(0, -1);
-    //         // checks for numbers before the % until index0 or a dmas, then turns the value% to its equivalent decimal. 
-    //         displayString = displayString.replace(/(\d+(\.\d+)?)%/g, (_, num) => parseFloat(num) / 100);
-    //         let ans = eval(displayString);
-    //         memoryDisplay.textContent = displayString;
-    //         inputDisplay.textContent = ans;
-    //     } else {
-    //         memoryDisplay.textContent = displayString;
-    //         // checks for numbers before the % until index0 or a dmas, then turns the value% to its equivalent decimal. 
-    //         displayString = displayString.replace(/(\d+(\.\d+)?)%/g, (_, num) => parseFloat(num) / 100);
-    //         let ans = eval(displayString);
-    //         inputDisplay.textContent = ans;
-    //     } 
-    // } else {
-    //     console.log("Error occurred during handling of '=' please use the symbols or operators provided!");
-    // }
-
-    // //handling √
-    
-    // displayString = displayString.replace(/√(\d+(\.\d+)?)/g, Math.sqrt((_, num) => parseFloat(num)));
 }
 
 const percentKey = document.querySelector("#percent");
@@ -263,19 +237,29 @@ const handlePercentClick = event => {
     console.log(`Display String: ${displayString}`);
     console.log(`Last Character: ${lastChar}`);
 
-    if(lastChar === '%') {
-        inputDisplay.textContent += "";
-    } else if (dmas.includes(lastChar)) {
-        inputDisplay.textContent += "";
+
+    if (displayString.length < 16) {
+        if (lastChar === '%') {
+            inputDisplay.textContent += "";
+        } else if (dmas.includes(lastChar)) {
+            inputDisplay.textContent += "";
+        } else {
+            inputDisplay.textContent += '%';
+        }
     } else {
-        inputDisplay.textContent += '%';
+        inputDisplay.textContent += '';
     }
 
 }
 
 const squareRootKey = document.querySelector("#square-root");
 const handleSquareRootClick = event => {
-    inputDisplay.textContent += '√';
+    if (displayString.length < 16) {
+        inputDisplay.textContent += '√';    
+    } else {
+        inputDisplay.textContent += '';
+    }
+    
 };
 
 document.addEventListener("DOMContentLoaded", () => {
