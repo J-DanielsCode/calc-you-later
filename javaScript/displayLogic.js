@@ -1,0 +1,41 @@
+
+const inputDisplay = document.querySelector("#current-input");
+const memoryDisplay = document.querySelector("#prev-input");
+const dmas = [
+    '/',
+    '+',
+    '-',
+    '*'
+];
+
+export const appendNumberOrDecimal = value => {
+    if (inputDisplay.textContent.length < 16) {
+        inputDisplay.textContent += value;
+    }
+}
+
+export const clearDisplay1 = () => {
+    inputDisplay.textContent = "";
+}
+
+export const clearAllDisplays = () => {
+    inputDisplay.textContent = "";
+    memoryDisplay.textContent = "";
+}
+
+export const deleteLastChar = () => {
+    inputDisplay.textContent = inputDisplay.textContent.slice(0, -1);
+}
+
+export const appendSymbol = symbol => {
+    let lastChar = inputDisplay.textContent[inputDisplay.textContent.length - 1]
+    if (inputDisplay.textContent.length < 16) {
+        if (dmas.includes(lastChar)) {
+            inputDisplay.textContent += "";
+        } else {
+            inputDisplay.textContent += symbol;
+        }
+    } else {
+        inputDisplay.textContent += '';
+    }
+}
