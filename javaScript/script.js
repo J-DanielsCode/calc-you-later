@@ -199,19 +199,28 @@ const cleanEquation = () => {
         }
     }
 
-    // console.log(`Equation contains: Dmas - ${containsDmas},  % - ${containsPercent}, √ - ${containsSqRt}`);
+    console.log(`Equation before handling '%': ${equation}`);
 
     if (containsDmas && containsPercent) {
         // checks for numbers before the % until index0 or a dmas, then turns the value% to its equivalent decimal. 
         equation = displayString.replace(/(\d+(\.\d+)?)%/g, (_, num) => parseFloat(num) / 100);
-    }
+        console.log(`Equation before handling '√': ${equation}`);
 
-    if (containsSqRt) {
-        //handling √
-        equation = displayString.replace(/√(\d+(\.\d+)?)/g, (_, num) => Math.sqrt(parseFloat(num)));
+        if (containsSqRt) {
+            //handling √
+            equation = equation.replace(/√(\d+(\.\d+)?)/g, (_, num) => Math.sqrt(parseFloat(num)));
+        }
+    } else {
+        console.log(`Equation before handling '√': ${equation}`);
+
+        if (containsSqRt) {
+            //handling √
+            equation = displayString.replace(/√(\d+(\.\d+)?)/g, (_, num) => Math.sqrt(parseFloat(num)));
+        }
     }
 
     console.log(`Equation: ${equation}`)
+    console.log("Equation is a: " + typeof equation)
     let ans = eval(equation);
     let cleanAnswer = cleanAns(ans);
     console.log(`Clean answer is: ${cleanAnswer}`);
