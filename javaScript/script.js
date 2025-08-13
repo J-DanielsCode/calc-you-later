@@ -150,6 +150,9 @@ const cleanAns = ans => {
     } else if (ansString.length <= 16 && containsDecimal && decimalIndex === 15) {
         console.log("Ans is <= 16, contains a decimal and decimal index = 15")
         return Math.round(ans);
+    } else if (ansString.length <= 16 && !containsDecimal) {
+        console.log("Ans is <= 16, does not contains a decimal")
+        return ans;
     } else if (ansString.length > 16) {
         if (containsDecimal) {
             if (decimalIndex === 15 || decimalIndex === 16) {
