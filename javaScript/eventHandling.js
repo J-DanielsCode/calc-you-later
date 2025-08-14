@@ -6,7 +6,9 @@ export class EventHandler {
     constructor () { 
         this.inputDisplay = document.querySelector("#current-input"); //initiates input display
         this.memoryDisplay = document.querySelector("#prev-input");
+        this.dmas = ['/', '+', '-', '*']; //dmas stands for divide, multiply, add, subtract taken from BIDMAS
         this.calc = new Calculator();
+        this.lastChar;
     }
 
     //handles click of number keys
@@ -16,12 +18,21 @@ export class EventHandler {
 
     // handles click of decimal button
     handleDecimalClick = event => {
-        // if a '.' is not already in the display when clicked, it will be added to display
-
         if (this.inputDisplay.textContent.length < 16) {
-            if (this.inputDisplay.textContent[this.inputDisplay.textContent.length -1] !== '.') {
-                // need to code a regex that checks if there is another '.' between here and the previous symbol.
-                appendNumberOrDecimalOrSqrRt('.')
+            this.lastChar = this.inputDisplay.textContent[this.inputDisplay.textContent.length -1];
+            if (this.lastChar !== '.' && this.lastChar !== '%') {
+                //creates pattern to split display by the dmas
+                const pattern = new RegExp(`[${this.dmas.map(char => `\\${char}`).join("")}]`, "g");
+                //array of numbers in display
+                const numbers = this.inputDisplay.textContent.split(pattern);
+
+                console.log("Pattern array: " + pattern);
+                console.log("Current number:" + numbers[numbers.length - 1] );
+
+                //if current number in equation does not include a '.' then run 
+                if (!numbers[numbers.length - 1].includes('.')) {
+                    appendNumberOrDecimalOrSqrRt('.')
+                }
             }
         }
     }
@@ -70,7 +81,8 @@ export class EventHandler {
     handlePercentClick = event => {
         console.log('Percent clicked.');
         console.log(this.inputDisplay.textContent[this.inputDisplay.textContent.length - 1])
-        if (this.inputDisplay.textContent[this.inputDisplay.textContent.length - 1] !== '%') {
+        this.lastChar = this.inputDisplay.textContent[this.inputDisplay.textContent.length - 1];
+        if (lastChar !== '%') {
             appendSymbol('%');
         }
 
