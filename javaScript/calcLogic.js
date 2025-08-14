@@ -39,9 +39,11 @@ export class Calculator {
                 } else if (decimalIndex < 15) {
                     console.log("Ans is > 16, contains a decimal, decimal index < 15")
                     let indexAndLengthDiff = 15 - decimalIndex;
+                    console.log(`Decimal Index: ${decimalIndex}`)
+                    console.log(`Difference in index and legth of equation ${indexAndLengthDiff}`)
                     return Number.parseFloat(ans).toFixed(indexAndLengthDiff);
                 } else if (decimalIndex > 16) {
-                    console.log("Ans is > 16, contains a decimal, decimal index > 17")
+                    console.log("Ans is > 16, contains a decimal, decimal index > 16")
                     let expo = Number.parseFloat(ans).toExponential(3);
                     return expo
                 }
@@ -101,6 +103,6 @@ export class Calculator {
         let ans = eval(equation);
         let cleanAnswer = this.cleanAns(ans);
         console.log(`Clean answer is: ${cleanAnswer}`);
-        return [displayString, ans];
+        return [displayString, cleanAnswer];
     }
 }
