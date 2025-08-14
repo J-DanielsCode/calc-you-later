@@ -30,12 +30,9 @@ export const deleteLastChar = () => {
 export const appendSymbol = symbol => {
     let lastChar = inputDisplay.textContent[inputDisplay.textContent.length - 1]
     if (inputDisplay.textContent.length < 16) {
-        if (dmas.includes(lastChar)) {
-            inputDisplay.textContent += "";
-        } else {
+        //if last charcter is not a dmas, run
+        if (!dmas.includes(lastChar)) {
             inputDisplay.textContent += symbol;
         }
-    } else {
-        inputDisplay.textContent += '';
     }
 }
