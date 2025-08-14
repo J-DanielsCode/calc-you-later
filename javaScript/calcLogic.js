@@ -1,11 +1,8 @@
 
 export class Calculator {
-    dmas = [
-        '/',
-        '+',
-        '-',
-        '*'
-    ];
+    constructor() {
+        this.dmas = ['/', '+', '-', '*'];
+    }
     cleanDisplayString (displayString) {
         // displayString = inputDisplay.textContent;
         const lastChar = displayString[displayString.length - 1];

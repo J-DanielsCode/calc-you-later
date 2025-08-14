@@ -1,17 +1,6 @@
-import { handleAdditionClick, 
-    handleSubtractionClick, 
-    handleBackspaceClick, 
-    handleClearAllClick, 
-    handleClearEntryClick, 
-    handleDecimalClick, 
-    handleDivideClick, 
-    handleEqualsClick, 
-    handleMultiplyClick,
-    handleNumberClick,
-    handlePercentClick,
-    handleSquareRootClick
-} from "./eventHandling.js";
+import { EventHandler } from "./eventHandling.js";
 
+const eventHandler = new EventHandler();
 const numberKeys = document.querySelectorAll(".keys.number");
 const decimalKey = document.querySelector("#decimal");
 const backspace = document.querySelector("#backspace");
@@ -29,35 +18,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Adds numbers to the display
     numberKeys.forEach((key) => { // for each key clicked the text within the key is added to the display
-        key.addEventListener("click", handleNumberClick);
+        key.addEventListener("click", eventHandler.handleNumberClick);
     });
 
     // adds decimal to the display
-    decimalKey.addEventListener("click", handleDecimalClick);
+    decimalKey.addEventListener("click", eventHandler.handleDecimalClick);
 
     //clears entry
-    clearEntry.addEventListener("click", handleClearEntryClick);
+    clearEntry.addEventListener("click", eventHandler.handleClearEntryClick);
 
     //removes last digit entered
-    backspace.addEventListener('click', handleBackspaceClick);
+    backspace.addEventListener('click', eventHandler.handleBackspaceClick);
 
     //removes all numbers from calculation
-    clearAll.addEventListener("click", handleClearAllClick);
+    clearAll.addEventListener("click", eventHandler.handleClearAllClick);
 
     //runs when + clicked
-    addition.addEventListener("click", handleAdditionClick);
+    addition.addEventListener("click", eventHandler.handleAdditionClick);
 
     //handles subtraction
-    subtraction.addEventListener("click", handleSubtractionClick);
+    subtraction.addEventListener("click", eventHandler.handleSubtractionClick);
 
     //handles equals
-    equals.addEventListener("click", handleEqualsClick);
+    equals.addEventListener("click", eventHandler.handleEqualsClick);
 
-    multiply.addEventListener("click", handleMultiplyClick);
+    multiply.addEventListener("click", eventHandler.handleMultiplyClick);
 
-    division.addEventListener("click", handleDivideClick);
+    division.addEventListener("click", eventHandler.handleDivideClick);
 
-    percentKey.addEventListener("click", handlePercentClick);
+    percentKey.addEventListener("click", eventHandler.handlePercentClick);
 
-    squareRootKey.addEventListener("click", handleSquareRootClick);
+    squareRootKey.addEventListener("click", eventHandler.handleSquareRootClick);
 })
