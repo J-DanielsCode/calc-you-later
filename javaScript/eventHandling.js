@@ -1,5 +1,5 @@
 import { Calculator } from "./calcLogic.js";
-import { appendNumberOrDecimal, clearDisplay1, deleteLastChar, clearAllDisplays, appendSymbol } from "./displayLogic.js";
+import { appendNumberOrDecimalOrSqrRt, clearDisplay1, deleteLastChar, clearAllDisplays, appendSymbol } from "./displayLogic.js";
 
 export class EventHandler {
     
@@ -11,7 +11,7 @@ export class EventHandler {
 
     //handles click of number keys
     handleNumberClick = event => {
-        appendNumberOrDecimal(event.target.textContent.trim());
+        appendNumberOrDecimalOrSqrRt(event.target.textContent.trim());
     }
 
     // handles click of decimal button
@@ -21,7 +21,7 @@ export class EventHandler {
         if (this.inputDisplay.textContent.length < 16) {
             if (this.inputDisplay.textContent[this.inputDisplay.textContent.length -1] !== '.') {
                 // need to code a regex that checks if there is another '.' between here and the previous symbol.
-                appendNumberOrDecimal('.')
+                appendNumberOrDecimalOrSqrRt('.')
             }
         }
     }
@@ -69,15 +69,16 @@ export class EventHandler {
 
     handlePercentClick = event => {
         console.log('Percent clicked.');
-        if (this.inputDisplay.textContent[this.inputDisplay.textContent - 1] !== '%') {
+        console.log(this.inputDisplay.textContent[this.inputDisplay.textContent.length - 1])
+        if (this.inputDisplay.textContent[this.inputDisplay.textContent.length - 1] !== '%') {
             appendSymbol('%');
         }
 
     }
 
     handleSquareRootClick = event => {
-        if (this.inputDisplay.textContent[this.inputDisplay.textContent - 1] !== '%') {
-            appendSymbol('√');
+        if (this.inputDisplay.textContent[this.inputDisplay.textContent.length - 1] !== '%') {
+            appendNumberOrDecimalOrSqrRt('√');
         }
         
     };

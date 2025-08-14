@@ -8,7 +8,7 @@ const dmas = [
     '*'
 ];
 
-export const appendNumberOrDecimal = value => {
+export const appendNumberOrDecimalOrSqrRt = value => {
     if (inputDisplay.textContent.length < 16) {
         inputDisplay.textContent += value;
     }
