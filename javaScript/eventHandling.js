@@ -82,14 +82,15 @@ export class EventHandler {
         console.log('Percent clicked.');
         console.log(this.inputDisplay.textContent[this.inputDisplay.textContent.length - 1])
         this.lastChar = this.inputDisplay.textContent[this.inputDisplay.textContent.length - 1];
-        if (lastChar !== '%') {
+        if (this.lastChar !== '%') {
             appendSymbol('%');
         }
 
     }
 
     handleSquareRootClick = event => {
-        if (this.inputDisplay.textContent[this.inputDisplay.textContent.length - 1] !== '%') {
+        this.lastChar = this.inputDisplay.textContent[this.inputDisplay.textContent.length - 1];
+        if (this.lastChar !== '√') {
             appendNumberOrDecimalOrSqrRt('√');
         }
         

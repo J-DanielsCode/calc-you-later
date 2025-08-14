@@ -77,22 +77,21 @@ export class Calculator {
             }
         }
 
-        console.log(`Equation before handling '%': ${equation}`);
-
+        // if equation contains smas and %
         if (containsDmas && containsPercent) {
             // checks for numbers before the % until index0 or a dmas, then turns the value% to its equivalent decimal. 
             equation = displayString.replace(/(\d+(\.\d+)?)%/g, (_, num) => parseFloat(num) / 100);
             console.log(`Equation before handling '√': ${equation}`);
-
+            //handling √ 
             if (containsSqRt) {
-                //handling √
+                // checks for numbers after the √, then turns the value to its equivalent number.
                 equation = equation.replace(/√(\d+(\.\d+)?)/g, (_, num) => Math.sqrt(parseFloat(num)));
             }
+            //
         } else {
             console.log(`Equation before handling '√': ${equation}`);
-
+            //handling √
             if (containsSqRt) {
-                //handling √
                 equation = displayString.replace(/√(\d+(\.\d+)?)/g, (_, num) => Math.sqrt(parseFloat(num)));
             }
         }
