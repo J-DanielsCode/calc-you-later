@@ -118,7 +118,7 @@ export class EventHandler {
                 }
             }
         }
-        this.mrc += Number(this.inputDisplay.textContent);
+    this.mrc = this.calc.cleanAns(this.mrc += Number(this.inputDisplay.textContent));        
     }
 
     handleMemSubtractClick = event => {
@@ -132,7 +132,8 @@ export class EventHandler {
                 }
             }
         }
-        this.mrc -= Number(this.inputDisplay.textContent);
+        this.mrc = this.calc.cleanAns(this.mrc -= Number(this.inputDisplay.textContent));
+        // this.mrc -= Number(this.inputDisplay.textContent);
     }
 
 }

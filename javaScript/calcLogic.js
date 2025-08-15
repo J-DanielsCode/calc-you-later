@@ -26,7 +26,6 @@ export class Calculator {
     cleanAns (ans) {
         const ansString = ans.toString();
         const containsDecimal = ansString.includes('.');
-
         const decimalIndex = ansString.indexOf('.');
         
         if (ansString.length <= 16 && containsDecimal && decimalIndex < 15) {
