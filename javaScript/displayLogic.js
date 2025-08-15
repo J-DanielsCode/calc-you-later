@@ -1,6 +1,6 @@
 
 const inputDisplay = document.querySelector("#current-input");
-const memoryDisplay = document.querySelector("#prev-input");
+const prevDisplay = document.querySelector("#prev-input");
 const dmas = [
     '/',
     '+',
@@ -20,7 +20,7 @@ export const clearDisplay1 = () => {
 
 export const clearAllDisplays = () => {
     inputDisplay.textContent = "";
-    memoryDisplay.textContent = "";
+    prevDisplay.textContent = "";
 }
 
 export const deleteLastChar = () => {

@@ -6,13 +6,20 @@ export class Calculator {
     cleanDisplayString (displayString) {
         // displayString = inputDisplay.textContent;
         const lastChar = displayString[displayString.length - 1];
+        const firstTwoChars = [displayString[0], displayString[1]];
 
+        //removes last char from display string if it is  one of +, -, *, /
         if (this.dmas.includes(lastChar)) {
             displayString = displayString.slice(0, -1);
             return displayString;
         } else {
             return displayString;
         }
+        
+        //prevents displayString from being an octal literal
+        //need to add a regexp that checks all numbers to make sure theyre not octal literal and replaces them with their appropriat number
+
+
 
     }
 

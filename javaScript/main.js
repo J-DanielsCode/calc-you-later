@@ -13,6 +13,9 @@ const division = document.querySelector("#division");
 const equals = document.querySelector("#equals");
 const percentKey = document.querySelector("#percent");
 const squareRootKey = document.querySelector("#square-root");
+const memDisplay = document.querySelector("#mrc");
+const memSubtract = document.querySelector("#m-minus");
+const memPlus = document.querySelector("#m-plus");
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -49,4 +52,12 @@ document.addEventListener("DOMContentLoaded", () => {
     percentKey.addEventListener("click", eventHandler.handlePercentClick);
 
     squareRootKey.addEventListener("click", eventHandler.handleSquareRootClick);
+
+    memDisplay.addEventListener("click", eventHandler.handleMemDisplayClick);
+
+    memDisplay.addEventListener("dblclick", eventHandler.handleMemDisplayDblclick);
+
+    memSubtract.addEventListener("click", eventHandler.handleMemSubtractClick);
+
+    memPlus.addEventListener("click", eventHandler.handleMemPlusClick);
 })

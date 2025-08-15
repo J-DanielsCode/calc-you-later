@@ -5,10 +5,11 @@ export class EventHandler {
     
     constructor () { 
         this.inputDisplay = document.querySelector("#current-input"); //initiates input display
-        this.memoryDisplay = document.querySelector("#prev-input");
+        this.prevDisplay = document.querySelector("#prev-input");
         this.dmas = ['/', '+', '-', '*']; //dmas stands for divide, multiply, add, subtract taken from BIDMAS
         this.calc = new Calculator();
         this.lastChar;
+        this.mrc = 0;
     }
 
     //handles click of number keys
@@ -75,7 +76,7 @@ export class EventHandler {
         const [displayString, ans] = this.calc.cleanEquation(this.inputDisplay.textContent)
 
         this.inputDisplay.textContent = ans;
-        this.memoryDisplay.textContent = displayString;
+        this.prevDisplay.textContent = displayString;
     }
 
     handlePercentClick = event => {
@@ -92,7 +93,46 @@ export class EventHandler {
         this.lastChar = this.inputDisplay.textContent[this.inputDisplay.textContent.length - 1];
         if (this.lastChar !== '√') {
             appendNumberOrDecimalOrSqrRt('√');
-        }
-        
+        }  
     };
+
+    handleMemDisplayClick = event => {
+        console.log("MRC clicked");
+        this.inputDisplay.textContent = this.mrc.toString();
+        console.log(typeof this.inputDisplay.textContent);
+    }
+
+    handleMemDisplayDblclick = event => {
+        console.log("MRC double clicked");
+        this.mrc = 0;
+    }
+
+    handleMemPlusClick = event => {
+        console.log("M+ double clicked");
+        let displayIsNumberString;
+
+        for (let i = 0; i < this.inputDisplay.textContent.length; i++) {
+            for (let j = 0; j < this.dmas.length; j++) {
+                if(this.inputDisplay.textContent[i] !== '%' && this.inputDisplay.textContent[i] !== '√' && this.inputDisplay.textContent[i] !== this.dmas[j]) {
+                    displayIsNumberString = true;
+                }
+            }
+        }
+        this.mrc += Number(this.inputDisplay.textContent);
+    }
+
+    handleMemSubtractClick = event => {
+        console.log("M- double clicked");
+        let displayIsNumberString;
+
+        for (let i = 0; i < this.inputDisplay.textContent.length; i++) {
+            for (let j = 0; j < this.dmas.length; j++) {
+                if(this.inputDisplay.textContent[i] !== '%' && this.inputDisplay.textContent[i] !== '√' && this.inputDisplay.textContent[i] !== this.dmas[j]) {
+                    displayIsNumberString = true;
+                }
+            }
+        }
+        this.mrc -= Number(this.inputDisplay.textContent);
+    }
+
 }
