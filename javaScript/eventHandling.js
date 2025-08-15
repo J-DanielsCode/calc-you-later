@@ -133,7 +133,6 @@ export class EventHandler {
             }
         }
         this.mrc = this.calc.cleanAns(this.mrc -= Number(this.inputDisplay.textContent));
-        // this.mrc -= Number(this.inputDisplay.textContent);
     }
 
 }
