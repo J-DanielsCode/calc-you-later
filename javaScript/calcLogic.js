@@ -23,48 +23,68 @@ export class Calculator {
         }
     }
 
-    cleanAns (ans) {
+    cleanAns (ans) { //ensures answer is no longer than 16 chars
         const ansString = ans.toString();
         const containsDecimal = ansString.includes('.');
-        const decimalIndex = ansString.indexOf('.');
+        const decimalIndex = ansString.indexOf('.');       
 
-        //add a regex that cleans a number with a decimal and ending in zeros eg 2.36450000
-        
-        
-        if (ansString.length <= 16 && containsDecimal && decimalIndex < 15) {
-            console.log("Ans is <= 16, contains a decimal and decimal index < 15")
-            
-            return ans
-        } else if (ansString.length <= 16 && containsDecimal && decimalIndex === 15) {
-            console.log("Ans is <= 16, contains a decimal and decimal index = 15")
-            return Math.round(ans);
-        } else if (ansString.length <= 16 && !containsDecimal) {
-            console.log("Ans is <= 16, does not contains a decimal")
+        if (ansString.length <= 16) {
+            if (!containsDecimal) return ans;
+            if (decimalIndex === 15) return Math.round(ans);
             return ans;
-        } else if (ansString.length > 16) {
-            if (containsDecimal) {
-                if (decimalIndex === 15 || decimalIndex === 16) {
-                    console.log("Ans is > 16, contains a decimal, decimal index = 15 OR 16")
-                    return Math.round(ans)
-                } else if (decimalIndex < 15) {
-                    console.log("Ans is > 16, contains a decimal, decimal index < 15")
-                    let indexAndLengthDiff = 15 - decimalIndex;
-                    console.log(`Decimal Index: ${decimalIndex}`)
-                    console.log(`Difference in index and length of equation ${indexAndLengthDiff}`);
-                    ans = Number.parseFloat(ans).toFixed(indexAndLengthDiff); //ensures digits after decimal place will make whole number 16 characters
-                    ans = ans.replace(/0+$/, ""); //if the decimal number ends with 0s remove them.
-                    return ans;
-                } else if (decimalIndex > 16) {
-                    console.log("Ans is > 16, contains a decimal, decimal index > 16")
-                    let expo = Number.parseFloat(ans).toExponential(3);
-                    return expo
-                }
-            } else {
-                console.log("Ans is > 16, contains no decimal")
-                let expo = Number.parseFloat(ans).toExponential(3);
-                return expo;
-            }
         }
+
+        if (!containsDecimal) {
+            return Number.parseFloat(ans).toExponential(3);
+        }
+
+        if (decimalIndex === 15 || decimalIndex === 16) {
+            return Math.round(ans);
+        }
+
+        if (decimalIndex < 15) {
+            let indexAndLengthDiff = 15 - decimalIndex;
+            return Number.parseFloat(ans).toFixed(indexAndLengthDiff).replace(/0+$/, "");
+        }
+
+        if (decimalIndex > 16) {
+            return Number.parseFloat(ans).toExponential(3);
+        }
+        
+        // if (ansString.length <= 16 && containsDecimal && decimalIndex < 15) {
+        //     console.log("Ans is <= 16, contains a decimal and decimal index < 15")
+            
+        //     return ans
+        // } else if (ansString.length <= 16 && containsDecimal && decimalIndex === 15) {
+        //     console.log("Ans is <= 16, contains a decimal and decimal index = 15")
+        //     return Math.round(ans);
+        // } else if (ansString.length <= 16 && !containsDecimal) {
+        //     console.log("Ans is <= 16, does not contains a decimal")
+        //     return ans;
+        // } else if (ansString.length > 16) {
+        //     if (containsDecimal) {
+        //         // if (decimalIndex === 15 || decimalIndex === 16) {
+        //         //     console.log("Ans is > 16, contains a decimal, decimal index = 15 OR 16")
+        //         //     return Math.round(ans);
+        //         // } else if (decimalIndex < 15) {
+        //         //     console.log("Ans is > 16, contains a decimal, decimal index < 15")
+        //         //     let indexAndLengthDiff = 15 - decimalIndex;
+        //         //     console.log(`Decimal Index: ${decimalIndex}`)
+        //         //     console.log(`Difference in index and length of equation ${indexAndLengthDiff}`);
+        //         //     ans = Number.parseFloat(ans).toFixed(indexAndLengthDiff); //ensures digits after decimal place will make whole number 16 characters
+        //         //     ans = ans.replace(/0+$/, ""); //if the decimal number ends with 0s remove them.
+        //         //     return ans;
+        //         } else if (decimalIndex > 16) {
+        //             console.log("Ans is > 16, contains a decimal, decimal index > 16")
+        //             let expo = Number.parseFloat(ans).toExponential(3);
+        //             return expo
+        //         }
+            // } else {
+            //     console.log("Ans is > 16, contains no decimal")
+            //     let expo = Number.parseFloat(ans).toExponential(3);
+            //     return expo;
+            // }
+        // }
     }
 
     cleanEquation (displayString) {

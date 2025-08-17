@@ -11,9 +11,11 @@ const dmas = [
 export const appendNumberOrDecimalOrSqrRt = value => {
     if (inputDisplay.textContent.length < 15) {
         inputDisplay.textContent += value;
-    } else if (inputDisplay.textContent.length === 15 && value !== "00") {
+    } else if (inputDisplay.textContent.length === 15 
+        && value !== "00"
+        && value !== '√') { // does not allow input at length 15 if value === "00"
         inputDisplay.textContent += value;
-    }
+    } 
 }
 
 export const clearDisplay1 = () => {
