@@ -4,7 +4,6 @@ export class Calculator {
         this.dmas = ['/', '+', '-', '*'];
     }
     cleanDisplayString (displayString) {
-        //removes octal literals
         //trims trailing 0s in floats (e.g., 5.0700 -> 5.07)
         displayString = displayString.replace(/(\.\d+?)0+(?!\d)/g, "$1");
         //trims integer leadin 0s (e.g., 0005.07 -> 5.07)
@@ -12,11 +11,7 @@ export class Calculator {
         // drop ".0" endings entirely (e.g., 5.000 -> 5)
         displayString = displayString.replace(/\.0+\b/g, "");
         
-            // .replace(/\b0+(?=\d)(?!\.)/g, "") //finds all leading zeros
-             //why is this not working
-            // .replace(/\.0+\b/g, "")
-            // .replace(/\.(?=\*\/\-\+\%\√)/, "");
-            console.log("Cleaned display string: " + displayString)
+        console.log("Cleaned display string: " + displayString)
         const lastChar = displayString[displayString.length - 1];
 
         //removes last char from display string if it is  one of +, -, *, /
