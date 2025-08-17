@@ -9,7 +9,9 @@ const dmas = [
 ];
 
 export const appendNumberOrDecimalOrSqrRt = value => {
-    if (inputDisplay.textContent.length < 16) {
+    if (inputDisplay.textContent.length < 15) {
+        inputDisplay.textContent += value;
+    } else if (inputDisplay.textContent.length === 15 && value !== "00") {
         inputDisplay.textContent += value;
     }
 }

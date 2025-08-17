@@ -106,6 +106,9 @@ body #calculator #characters .keys h1 {
   margin: 0;
   text-align: center;
 }
+body #calculator #characters .keys:active {
+  color: white;
+}
 body #calculator #characters .number {
   background-color: #B3C8CF;
 }
