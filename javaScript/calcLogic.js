@@ -4,9 +4,20 @@ export class Calculator {
         this.dmas = ['/', '+', '-', '*'];
     }
     cleanDisplayString (displayString) {
-        // displayString = inputDisplay.textContent;
+        //removes octal literals
+        //trims trailing 0s in floats (e.g., 5.0700 -> 5.07)
+        displayString = displayString.replace(/(\.\d+?)0+(?!\d)/g, "$1");
+        //trims integer leadin 0s (e.g., 0005.07 -> 5.07)
+        displayString = displayString.replace(/(^|[+\-*/(])0+(?=\d)/g, "$1");
+        // drop ".0" endings entirely (e.g., 5.000 -> 5)
+        displayString = displayString.replace(/\.0+\b/g, "");
+        
+            // .replace(/\b0+(?=\d)(?!\.)/g, "") //finds all leading zeros
+             //why is this not working
+            // .replace(/\.0+\b/g, "")
+            // .replace(/\.(?=\*\/\-\+\%\√)/, "");
+            console.log("Cleaned display string: " + displayString)
         const lastChar = displayString[displayString.length - 1];
-        const firstTwoChars = [displayString[0], displayString[1]];
 
         //removes last char from display string if it is  one of +, -, *, /
         if (this.dmas.includes(lastChar)) {
@@ -15,21 +26,19 @@ export class Calculator {
         } else {
             return displayString;
         }
-        
-        //prevents displayString from being an octal literal
-        //need to add a regexp that checks all numbers to make sure theyre not octal literal and replaces them with their appropriat number
-
-
-
     }
 
     cleanAns (ans) {
         const ansString = ans.toString();
         const containsDecimal = ansString.includes('.');
         const decimalIndex = ansString.indexOf('.');
+
+        //add a regex that cleans a number with a decimal and ending in zeros eg 2.36450000
+        
         
         if (ansString.length <= 16 && containsDecimal && decimalIndex < 15) {
             console.log("Ans is <= 16, contains a decimal and decimal index < 15")
+            
             return ans
         } else if (ansString.length <= 16 && containsDecimal && decimalIndex === 15) {
             console.log("Ans is <= 16, contains a decimal and decimal index = 15")
@@ -46,8 +55,10 @@ export class Calculator {
                     console.log("Ans is > 16, contains a decimal, decimal index < 15")
                     let indexAndLengthDiff = 15 - decimalIndex;
                     console.log(`Decimal Index: ${decimalIndex}`)
-                    console.log(`Difference in index and legth of equation ${indexAndLengthDiff}`)
-                    return Number.parseFloat(ans).toFixed(indexAndLengthDiff);
+                    console.log(`Difference in index and length of equation ${indexAndLengthDiff}`);
+                    ans = Number.parseFloat(ans).toFixed(indexAndLengthDiff); //ensures digits after decimal place will make whole number 16 characters
+                    ans = ans.replace(/0+$/, ""); //if the decimal number ends with 0s remove them.
+                    return ans;
                 } else if (decimalIndex > 16) {
                     console.log("Ans is > 16, contains a decimal, decimal index > 16")
                     let expo = Number.parseFloat(ans).toExponential(3);
@@ -105,7 +116,7 @@ export class Calculator {
         }
 
         console.log(`Equation: ${equation}`)
-        console.log("Equation is a: " + typeof equation)
+        // console.log("Equation is a: " + typeof equation)
         let ans = eval(equation);
         let cleanAnswer = this.cleanAns(ans);
         console.log(`Clean answer is: ${cleanAnswer}`);
