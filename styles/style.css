@@ -59,14 +59,14 @@ body #calculator #display-name-container #display-container #display #prev-input
   color: rgba(102, 255, 102, 0.551);
   display: flex;
   width: 342px;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   align-items: flex-end;
   justify-content: flex-end;
   margin: 0;
   padding: 0 5px;
   height: 50%;
-  overflow-wrap: break-word;
-  word-break: break-word;
+  white-space: nowrap;
+  overflow: hidden;
 }
 body #calculator #display-name-container #display-container #display #current-input {
   font-family: "Bitcount Single", system-ui;
@@ -75,14 +75,14 @@ body #calculator #display-name-container #display-container #display #current-in
   color: rgb(102, 255, 102);
   display: flex;
   width: 342px;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   align-items: flex-end;
   justify-content: flex-end;
   margin: 0;
   padding: 0 5px;
   height: 50%;
-  overflow-wrap: break-word;
-  word-break: break-word;
+  white-space: nowrap;
+  overflow: hidden;
 }
 body #calculator #characters {
   width: 95%;
