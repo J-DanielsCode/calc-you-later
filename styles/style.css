@@ -63,7 +63,7 @@ body #calculator #display-name-container #display-container #display #prev-input
   align-items: flex-end;
   justify-content: flex-end;
   margin: 0;
-  padding: 0 5px;
+  padding: 0;
   height: 50%;
   white-space: nowrap;
   overflow: hidden;
@@ -79,7 +79,7 @@ body #calculator #display-name-container #display-container #display #current-in
   align-items: flex-end;
   justify-content: flex-end;
   margin: 0;
-  padding: 0 5px;
+  padding: 0;
   height: 50%;
   white-space: nowrap;
   overflow: hidden;
