@@ -50,6 +50,7 @@ export class Calculator {
         if (decimalIndex > 16) {
             return Number.parseFloat(ans).toExponential(3);
         }
+        //testing gpg
     }
 
     cleanEquation (displayString) {
