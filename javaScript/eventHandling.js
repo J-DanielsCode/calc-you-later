@@ -4,8 +4,8 @@ import { appendNumberOrDecimalOrSqrRt, clearDisplay1, deleteLastChar, clearAllDi
 export class EventHandler {
     
     constructor () { 
-        this.inputDisplay = document.querySelector("#current-input"); //initiates input display
-        this.prevDisplay = document.querySelector("#prev-input");
+        this.inputDisplay = document.getElementById("current-input"); //initiates input display
+        this.prevDisplay = document.getElementById("prev-input");
         this.dmas = ['/', '+', '-', '*']; //dmas stands for divide, multiply, add, subtract taken from BIDMAS
         this.calc = new Calculator();
         this.lastChar;

@@ -2,20 +2,20 @@ import { EventHandler } from "./eventHandling.js";
 
 const eventHandler = new EventHandler();
 const numberKeys = document.querySelectorAll(".keys.number");
-const decimalKey = document.querySelector("#decimal");
-const backspace = document.querySelector("#backspace");
-const clearEntry = document.querySelector("#clearEntry");
-const clearAll = document.querySelector("#clear-all");
-const addition = document.querySelector("#addition");
-const subtraction = document.querySelector("#subtraction");
-const multiply = document.querySelector("#multiply");
-const division = document.querySelector("#division");
-const equals = document.querySelector("#equals");
-const percentKey = document.querySelector("#percent");
-const squareRootKey = document.querySelector("#square-root");
-const memDisplay = document.querySelector("#mrc");
-const memSubtract = document.querySelector("#m-minus");
-const memPlus = document.querySelector("#m-plus");
+const decimalKey = document.getElementById("decimal");
+const backspace = document.getElementById("backspace");
+const clearEntry = document.getElementById("clearEntry");
+const clearAll = document.getElementById("clear-all");
+const addition = document.getElementById("addition");
+const subtraction = document.getElementById("subtraction");
+const multiply = document.getElementById("multiply");
+const division = document.getElementById("division");
+const equals = document.getElementById("equals");
+const percentKey = document.getElementById("percent");
+const squareRootKey = document.getElementById("square-root");
+const memDisplay = document.getElementById("mrc");
+const memSubtract = document.getElementById("m-minus");
+const memPlus = document.getElementById("m-plus");
 
 document.addEventListener("DOMContentLoaded", () => {
 
