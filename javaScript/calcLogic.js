@@ -77,7 +77,7 @@ export class Calculator {
             }
         }
 
-        // if equation contains smas and %
+        // if equation contains dmas and %
         if (containsDmas && containsPercent) {
             // checks for numbers before the % until index0 or a dmas, then turns the value% to its equivalent decimal. 
             equation = displayString.replace(/(\d+(\.\d+)?)%/g, (_, num) => parseFloat(num) / 100);

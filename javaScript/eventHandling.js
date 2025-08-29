@@ -30,7 +30,7 @@ export class EventHandler {
                 console.log("Pattern array: " + pattern);
                 console.log("Current number:" + numbers[numbers.length - 1] );
 
-                //if current number in equation does not include a '.' then run 
+                //if the final character is not a '.' then run 
                 if (!numbers[numbers.length - 1].includes('.')) {
                     appendNumberOrDecimalOrSqrRt('.')
                 }
