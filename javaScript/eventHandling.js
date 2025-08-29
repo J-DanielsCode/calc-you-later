@@ -10,6 +10,7 @@ export class EventHandler {
         this.calc = new Calculator();
         this.lastChar;
         this.mrc = 0;
+        this.decimalKey = document.getElementById("decimal");
     }
 
     //handles click of number keys
